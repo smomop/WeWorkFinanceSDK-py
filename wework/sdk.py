@@ -34,7 +34,6 @@ class Media(Structure):
 class WeWorkFinanceSDK:
     dll = None
     sdk = None
-    ciphers = []
 
     def __init__(self, corp_id, corp_secret, private_keys):
         """
@@ -54,7 +53,7 @@ class WeWorkFinanceSDK:
                 )
         if isinstance(corp_id, str): corp_id = corp_id.encode()
         if isinstance(corp_secret, str): corp_secret = corp_secret.encode()
-
+        self.ciphers = []
         self.dll = CDLL(f"{os.path.dirname(os.path.realpath(__file__))}/libWeWorkFinanceSdk_C.so")
         self.dll.NewSdk.restype = c_void_p
         self.sdk = self.dll.NewSdk()
