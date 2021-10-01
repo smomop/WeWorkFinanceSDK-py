@@ -78,6 +78,8 @@ class WeWorkFinanceSDK:
             raise WeWorkSDKDecryptException(-1, f"public key version {publickey_ver} not loaded")
 
         decrypted_key = self.ciphers[publickey_ver - 1].decrypt(encrypt_random_key, sentinel)
+        if not isinstance(decrypted_key, bytes):
+            decrypted_key = bytes(decrypted_key)
         logger.info(f"version:{publickey_ver} encrypt_random_key:{encrypt_random_key} decrypted_key:{decrypted_key}")
 
         slice = Slice()
